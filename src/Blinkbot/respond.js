@@ -1,4 +1,8 @@
+import { asyncTimeout } from "../utils/asyncTimeout";
+
 export async function respond(inputMessage) {
+  await asyncTimeout(800);
+
   const lowercaseMessage = inputMessage.trim().toLowerCase();
 
   if (lowercaseMessage === "hi") {

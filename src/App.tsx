@@ -2,56 +2,27 @@ import "./App.css";
 import MessageInput from "./MessageInput/MessageInput.tsx";
 import MessageList from "./MessageList/MessageList";
 import Header from "./Header/Header";
-import { getInitialMessage, respond } from "./Blinkbot/respond";
-import { useLocalStorage } from "usehooks-ts";
+import { respond } from "./Blinkbot/respond";
 import "./Blinkbot.css";
-
-type Message = {
-  user: "Blinkbot" | "Human";
-  text: string;
-  timestamp: Date;
-  isUser: boolean;
-};
-
-const getInitialState = (): [Message] => [
-  {
-    user: "Blinkbot",
-    isUser: false,
-    text: getInitialMessage(),
-    timestamp: new Date(),
-  },
-];
+import { useMessages } from "./hooks/useMessages.ts";
 
 function App() {
-  const [messages, setMessages] = useLocalStorage<Array<Message>>(
-    "messages",
-    getInitialState(),
-  );
-
-  const addMessage = (message: Omit<Message, "timestamp">) => {
-    setMessages((oldMessages) => [
-      ...oldMessages,
-      { ...message, timestamp: new Date() },
-    ]);
-  };
+  const { messages, addMessage, resetMessages } = useMessages();
 
   const handleUserMessage = async (message: string) => {
-    addMessage({ text: message, user: "Human", isUser: true });
+    addMessage({ text: message, user: "Human", isCurrentUser: true });
 
     const botResponse = await respond(message).catch(
       (error) => `I had a problem: ${error.message}`,
     );
-    addMessage({ text: botResponse, user: "Blinkbot", isUser: false });
-  };
 
-  const clearMessages = () => {
-    setMessages(getInitialState());
+    addMessage({ text: botResponse, user: "Blinkbot", isCurrentUser: false });
   };
 
   return (
     <div className={"App"}>
       <div className={"App__headerContainer"}>
-        <Header onReset={clearMessages} />
+        <Header onReset={resetMessages} />
       </div>
       <MessageList messages={messages} />
       <div className={"App__messageInputContainer"}>
