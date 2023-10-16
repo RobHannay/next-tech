@@ -1,4 +1,4 @@
-:root {
+.base {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -17,3 +17,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.testClass {
+  color: blue;
+}
