@@ -1,4 +1,4 @@
-# <img src="public/Blink-text.svg" alt="Blink logo" height="22"/> Frontend Task
+ni# <img src="public/Blink-text.svg" alt="Blink logo" height="22"/> Frontend Task
 
 Congratulations on getting to this stage of the process. We're excited to see what you'll build.
 
@@ -36,3 +36,13 @@ We find it useful if you can document some of your thinking, including what you 
 known issues and how you would resolve them given more time. Technical decisions, design decisions, compromises.
 
 Leave them below and push them with your submission 👇
+
+
+# scripts
+
+```shell
+nvm
+nvm install 20
+corepack enable
+pnpm install
+```
