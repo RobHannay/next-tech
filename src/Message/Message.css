@@ -30,3 +30,7 @@
     color: white;
   }
 }
+
+.Message__avatar {
+  flex-shrink: 0;
+}

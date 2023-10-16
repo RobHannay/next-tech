@@ -32,7 +32,10 @@ function Message({ message, isLast, isFirstOfUserGroup }) {
       })}
       ref={ref}
     >
-      <Avatar icon={isBotMessage ? <BsRobot size={24} /> : undefined} />
+      <Avatar
+        icon={isBotMessage ? <BsRobot size={24} /> : undefined}
+        className={"Message__avatar"}
+      />
       <div>
         {isBotMessage && isFirstOfUserGroup && <>{message.user}</>}
         <Card className={"Message__card"} shadow={"sm"}>

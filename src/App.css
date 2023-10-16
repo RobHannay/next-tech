@@ -5,11 +5,12 @@
 
 .App {
   display: flex;
-  width: 75vw;
+  max-width: 786px ;
   flex-direction: column;
   margin: auto;
   gap: 16px;
   height: 100vh;
+  padding: 16px;
 }
 
 .App__headerContainer,
