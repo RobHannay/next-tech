@@ -1,0 +1,22 @@
+.Message {
+  margin: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Message__card {
+  width: fit-content;
+}
+
+.Message_human {
+  flex-direction: row-reverse;
+
+  .Message__card {
+    background: #03390f;
+    color: white;
+  }
+}
+
+.Message_bot {
+}

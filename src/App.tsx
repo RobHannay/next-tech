@@ -1,21 +1,34 @@
-import blinkLogo from "/Blink-text.svg";
 import "./App.css";
 import MessageInput from "./MessageInput/MessageInput.tsx";
 import MessageList from "./MessageList/MessageList";
+import Header from "./Header/Header";
 import { getInitialMessage } from "./Blinkbot/respond";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Button } from "@nextui-org/react";
+import "./Blinkbot.css";
 
-const getInitialState = () => [getInitialMessage()];
+type Message = {
+  user: "Blinkbot" | "Human";
+  text: string;
+  timestamp: Date;
+};
+
+const getInitialState = (): [Message] => [
+  { user: "Blinkbot", text: getInitialMessage(), timestamp: new Date() },
+];
 
 function App() {
-  const [messages, setMessages] = useLocalStorage<Array<string>>(
+  const [messages, setMessages] = useLocalStorage<Array<Message>>(
     "messages",
     getInitialState(),
   );
 
+  const addMessage = (text: string, user: Message["user"]) => {
+    setMessages([...messages, { user, text, timestamp: new Date() }]);
+  };
+
   const handleUserMessage = (message: string) => {
-    setMessages([...messages, message]);
+    addMessage(message, "Human");
   };
 
   const clearMessages = () => {
@@ -23,17 +36,15 @@ function App() {
   };
 
   return (
-    <div className={"column"}>
-      <div>
-        <a href={"https://joinblink.com"} target={"_blank"}>
-          <img src={blinkLogo} className={"logo"} alt={"Blink logo"} />
-        </a>
+    <div className={"App"}>
+      <div className={"App__headerContainer"}>
+        <Header />
       </div>
-
-      <p className={"testClass"}>Open App.tsx to get started.</p>
       <MessageList messages={messages} />
-      <MessageInput onMessage={handleUserMessage} />
-      <Button onClick={clearMessages}>Clear all</Button>
+      <div className={"App__messageInputContainer"}>
+        <MessageInput onMessage={handleUserMessage} />
+        <Button onClick={clearMessages}>Restart conversation</Button>
+      </div>
     </div>
   );
 }

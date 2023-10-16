@@ -1,20 +1,26 @@
 import { Button, Input } from "@nextui-org/react";
 import { FormEvent } from "react";
 
-const fieldName = 'message';
+const fieldName = "message";
 
 function MessageInput({ onMessage }) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    onMessage(formData.get(fieldName));
+    const messageText = formData.get(fieldName);
+
+    if (messageText) {
+      onMessage(messageText);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input label={"Write a message"} name={fieldName}/>
-      <Button type={"submit"}>Send</Button>
+    <form onSubmit={handleSubmit} className={"MessageInput__container"}>
+      <Input label={"Write a message"} name={fieldName} />
+      <Button type={"submit"} onMouseDown={(e) => e.preventDefault()}>
+        Send
+      </Button>
     </form>
   );
 }
