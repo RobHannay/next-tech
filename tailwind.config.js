@@ -13,17 +13,19 @@ export default {
   darkMode: "class",
   plugins: [
     nextui({
+      addCommonColors: true,
       layout: {}, // common layout options
       themes: {
         light: {
           layout: {}, // light theme layout options
+          colors: {},
           // ...
         },
         dark: {
           layout: {}, // dark theme layout options
+          colors: {},
           // ...
         },
-        // ... custom themes
       },
     }),
   ],

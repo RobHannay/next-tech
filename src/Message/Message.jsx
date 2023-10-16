@@ -1,9 +1,16 @@
-import { Avatar, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Avatar, Card, CardBody, Spinner } from "@nextui-org/react";
 import "./Message.css";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import cx from "classnames";
-function Message({ message, isLast }) {
+import { useTimeout } from "usehooks-ts";
+import { BsRobot } from "react-icons/bs";
+
+function Message({ message, isLast, isFirstOfUserGroup }) {
   const ref = useRef(null);
+
+  let isBotMessage = message.user === "Blinkbot";
+
+  const [isLoading, setIsLoading] = useState(isBotMessage);
 
   useLayoutEffect(() => {
     if (isLast) {
@@ -13,7 +20,10 @@ function Message({ message, isLast }) {
     }
   }, [isLast]);
 
-  let isBotMessage = message.user === "Blinkbot";
+  useTimeout(() => {
+    setIsLoading(false);
+  }, 800);
+
   return (
     <div
       className={cx("Message", {
@@ -22,10 +32,13 @@ function Message({ message, isLast }) {
       })}
       ref={ref}
     >
-      <Avatar />
-      <Card className={"Message__card"} shadow={"sm"}>
-        <CardBody>{message.text}</CardBody>
-      </Card>
+      <Avatar icon={isBotMessage ? <BsRobot size={24} /> : undefined} />
+      <div>
+        {isBotMessage && isFirstOfUserGroup && <>{message.user}</>}
+        <Card className={"Message__card"} shadow={"sm"}>
+          <CardBody>{isLoading ? <Spinner /> : message.text}</CardBody>
+        </Card>
+      </div>
     </div>
   );
 }

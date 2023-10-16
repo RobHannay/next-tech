@@ -1,0 +1,12 @@
+
+.MessageInput__container {
+    display: flex;
+    padding-bottom: 16px;
+    gap: 16px;
+    align-items: center;
+}
+
+.MessageInput__button {
+    color: #03390f;
+    background-color: #cfff71;
+}

@@ -2,9 +2,8 @@ import "./App.css";
 import MessageInput from "./MessageInput/MessageInput.tsx";
 import MessageList from "./MessageList/MessageList";
 import Header from "./Header/Header";
-import { getInitialMessage } from "./Blinkbot/respond";
-import { useLocalStorage } from "@uidotdev/usehooks";
-import { Button } from "@nextui-org/react";
+import { getInitialMessage, respond } from "./Blinkbot/respond";
+import { useLocalStorage } from "usehooks-ts";
 import "./Blinkbot.css";
 
 type Message = {
@@ -24,11 +23,19 @@ function App() {
   );
 
   const addMessage = (text: string, user: Message["user"]) => {
-    setMessages([...messages, { user, text, timestamp: new Date() }]);
+    setMessages((oldMessages) => [
+      ...oldMessages,
+      { user, text, timestamp: new Date() },
+    ]);
   };
 
-  const handleUserMessage = (message: string) => {
+  const handleUserMessage = async (message: string) => {
     addMessage(message, "Human");
+
+    const botResponse = await respond(message).catch(
+      (error) => `I had a problem: ${error.message}`,
+    );
+    addMessage(botResponse, "Blinkbot");
   };
 
   const clearMessages = () => {
@@ -38,12 +45,11 @@ function App() {
   return (
     <div className={"App"}>
       <div className={"App__headerContainer"}>
-        <Header />
+        <Header onReset={clearMessages} />
       </div>
       <MessageList messages={messages} />
       <div className={"App__messageInputContainer"}>
         <MessageInput onMessage={handleUserMessage} />
-        <Button onClick={clearMessages}>Restart conversation</Button>
       </div>
     </div>
   );

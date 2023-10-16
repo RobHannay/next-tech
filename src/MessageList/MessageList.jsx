@@ -7,7 +7,12 @@ function MessageList({ messages }) {
   return (
     <ScrollShadow className={"App__messageListContainer"}>
       {messages.map((message, index) => (
-        <Message key={index} isLast={index === lastIndex} message={message} />
+        <Message
+          key={index}
+          isLast={index === lastIndex}
+          message={message}
+          isFirstOfUserGroup={message.user !== messages[index - 1]?.user}
+        />
       ))}
     </ScrollShadow>
   );
