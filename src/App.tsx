@@ -10,10 +10,16 @@ type Message = {
   user: "Blinkbot" | "Human";
   text: string;
   timestamp: Date;
+  isUser: boolean;
 };
 
 const getInitialState = (): [Message] => [
-  { user: "Blinkbot", text: getInitialMessage(), timestamp: new Date() },
+  {
+    user: "Blinkbot",
+    isUser: false,
+    text: getInitialMessage(),
+    timestamp: new Date(),
+  },
 ];
 
 function App() {
@@ -22,20 +28,20 @@ function App() {
     getInitialState(),
   );
 
-  const addMessage = (text: string, user: Message["user"]) => {
+  const addMessage = (message: Omit<Message, "timestamp">) => {
     setMessages((oldMessages) => [
       ...oldMessages,
-      { user, text, timestamp: new Date() },
+      { ...message, timestamp: new Date() },
     ]);
   };
 
   const handleUserMessage = async (message: string) => {
-    addMessage(message, "Human");
+    addMessage({ text: message, user: "Human", isUser: true });
 
     const botResponse = await respond(message).catch(
       (error) => `I had a problem: ${error.message}`,
     );
-    addMessage(botResponse, "Blinkbot");
+    addMessage({ text: botResponse, user: "Blinkbot", isUser: false });
   };
 
   const clearMessages = () => {

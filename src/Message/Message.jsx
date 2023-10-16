@@ -8,9 +8,7 @@ import { BsRobot } from "react-icons/bs";
 function Message({ message, isLast, isFirstOfUserGroup }) {
   const ref = useRef(null);
 
-  let isBotMessage = message.user === "Blinkbot";
-
-  const [isLoading, setIsLoading] = useState(isBotMessage);
+  const [isLoading, setIsLoading] = useState(!message.isUser);
 
   useLayoutEffect(() => {
     if (isLast) {
@@ -27,17 +25,17 @@ function Message({ message, isLast, isFirstOfUserGroup }) {
   return (
     <div
       className={cx("Message", {
-        Message_human: !isBotMessage,
-        Message_bot: isBotMessage,
+        Message_human: message.isUser,
+        Message_bot: !message.isUser,
       })}
       ref={ref}
     >
       <Avatar
-        icon={isBotMessage ? <BsRobot size={24} /> : undefined}
+        icon={message.isUser ? undefined : <BsRobot size={24} />}
         className={"Message__avatar"}
       />
       <div>
-        {isBotMessage && isFirstOfUserGroup && <>{message.user}</>}
+        {!message.isUser && isFirstOfUserGroup && <>{message.user}</>}
         <Card className={"Message__card"} shadow={"sm"}>
           <CardBody>{isLoading ? <Spinner /> : message.text}</CardBody>
         </Card>

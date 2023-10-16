@@ -6,9 +6,8 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { BiMenu, BiReset } from "react-icons/bi";
+import { BiReset } from "react-icons/bi";
 import "./Header.css";
-import { GoKebabHorizontal } from "react-icons/go";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 function Header({ onReset }) {
