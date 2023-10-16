@@ -27,6 +27,7 @@ function MessageInput({ onMessage }) {
         name={fieldName}
         value={value}
         onChange={(event) => setValue(event.target.value)}
+        variant="bordered"
         ref={input}
       />
       <Button
