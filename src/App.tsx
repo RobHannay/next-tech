@@ -5,12 +5,15 @@ import Header from "./Header/Header";
 import { respond } from "./Blinkbot/respond";
 import "./Blinkbot.css";
 import { useMessages } from "./hooks/useMessages.ts";
+import { asyncTimeout } from "./utils/asyncTimeout.ts";
 
 function App() {
   const { messages, addMessage, resetMessages } = useMessages();
 
   const handleUserMessage = async (message: string) => {
     addMessage({ text: message, user: "Human", isCurrentUser: true });
+
+    await asyncTimeout(150);
 
     const botResponse = await respond(message).catch(
       (error) => `I had a problem: ${error.message}`,

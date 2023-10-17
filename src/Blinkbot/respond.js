@@ -1,13 +1,15 @@
 import { asyncTimeout } from "../utils/asyncTimeout";
 
 export async function respond(inputMessage) {
-  await asyncTimeout(800);
+  console.log("Blinkbot responding to ", inputMessage);
 
   const lowercaseMessage = inputMessage.trim().toLowerCase();
 
   if (lowercaseMessage === "hi") {
     return "Hello there";
   }
+
+  console.log("No response matched");
 
   return "Sorry, I don't know how to respond to that yet";
 }
