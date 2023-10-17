@@ -15,12 +15,14 @@ Go to `src/Blinkbot/respond.js` to start adding your responses.
 # scripts
 
 ```shell
-cd ~
 touch ~/.zshrc
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-nvm install 20
+
+cd ~
 git clone https://github.com/RobHannay/next-tech.git
 cd next-tech
+
+nvm install 20
 corepack enable
 pnpm install
 pnpm dev
