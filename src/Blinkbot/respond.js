@@ -16,5 +16,5 @@ export async function respond(inputMessage) {
 }
 
 export function getInitialMessage() {
-  return "Hi, I'm Blinkbot. Please help me learn by opening 'src/Blinkbot/respond.js' to get started.";
+  return "Hi, I'm Blinkbot 🤖 Please help me learn by opening 'src/Blinkbot/respond.js' to get started.";
 }

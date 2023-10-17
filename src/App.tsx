@@ -6,6 +6,7 @@ import { respond } from "./Blinkbot/respond";
 import "./Blinkbot.css";
 import { useMessages } from "./hooks/useMessages.ts";
 import { asyncTimeout } from "./utils/asyncTimeout.ts";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary.tsx";
 
 function App() {
   const { messages, addMessage, resetMessages } = useMessages();
@@ -13,7 +14,7 @@ function App() {
   const handleUserMessage = async (message: string) => {
     addMessage({ text: message, user: "Human", isCurrentUser: true });
 
-    await asyncTimeout(150);
+    await asyncTimeout(250);
 
     const botResponse = await respond(message).catch(
       (error) => `I had a problem: ${error.message}`,
@@ -27,7 +28,9 @@ function App() {
       <div className={"App__headerContainer"}>
         <Header onReset={resetMessages} />
       </div>
-      <MessageList messages={messages} />
+      <ErrorBoundary>
+        <MessageList messages={messages} />
+      </ErrorBoundary>
       <div className={"App__messageInputContainer"}>
         <MessageInput onMessage={handleUserMessage} />
       </div>
