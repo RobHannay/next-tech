@@ -1,6 +1,6 @@
-# <img src="public/Blink-text.svg" alt="Blink logo" height="22"/> Frontend Task
+# <img src="public/Blink-text.svg" alt="Blink logo" height="22"/> bot
 
-Welcome to Next Tech Girls. We're so glad you're here.
+Welcome to Blink! We're so glad you're here.
 
 ## ⌨️ The task
 
@@ -10,20 +10,18 @@ Go to `src/Blinkbot/respond.js` to start adding your responses.
 
 ## 💭 I'm stuck
 
+Some things to try:
+- Can you see any errors or red underlines in your code editor?
+- Open the console in the browser (Press `fn` + `F12`). Can you see anything helpful there?
+- What happens if you put a different input in?
 
+Still no luck? Don't worry! Just grab Rob to help out
 
-# scripts
+## scripts
+
+To run the app, open the Terminal and run
 
 ```shell
-touch ~/.zshrc
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-
-cd ~
-git clone https://github.com/RobHannay/next-tech.git
-cd next-tech
-
-nvm install 20
-corepack enable
-pnpm install
 pnpm dev
 ```
+
