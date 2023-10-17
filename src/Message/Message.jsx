@@ -1,4 +1,4 @@
-import { Avatar, Card, CardBody, Spinner } from "@nextui-org/react";
+import { Avatar, Card, CardBody, Skeleton, Spinner } from "@nextui-org/react";
 import "./Message.css";
 import { useLayoutEffect, useRef, useState } from "react";
 import cx from "classnames";
@@ -37,7 +37,13 @@ function Message({ message, isLast, isFirstOfUserGroup }) {
       <div>
         {!message.isCurrentUser && isFirstOfUserGroup && <>{message.user}</>}
         <Card className={"Message__card"} shadow={"sm"}>
-          <CardBody>{isLoading ? <Spinner /> : message.text}</CardBody>
+          <CardBody>
+            {isLoading ? (
+              <Skeleton>fake loading text xyz fake loading text xyz</Skeleton>
+            ) : (
+              message.text
+            )}
+          </CardBody>
         </Card>
       </div>
     </div>
