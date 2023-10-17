@@ -1,5 +1,3 @@
-import { asyncTimeout } from "../utils/asyncTimeout";
-
 export async function respond(inputMessage) {
   console.log("Blinkbot responding to ", inputMessage);
 

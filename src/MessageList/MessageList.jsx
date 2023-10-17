@@ -1,17 +1,26 @@
 import Message from "../Message/Message.jsx";
 import { ScrollShadow } from "@nextui-org/react";
+import { useMemo } from "react";
+
+const sortByTime = (a, b) => {
+  return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
+};
 
 function MessageList({ messages }) {
-  const lastIndex = messages.length - 1;
+  const sortedMessages = useMemo(() => {
+    return Object.values(messages).sort(sortByTime);
+  }, [messages]);
+
+  const lastIndex = sortedMessages.length - 1;
 
   return (
     <ScrollShadow className={"App__messageListContainer"}>
-      {messages.map((message, index) => (
+      {sortedMessages.map((message, index) => (
         <Message
-          key={index}
+          key={message.id}
           isLast={index === lastIndex}
           message={message}
-          isFirstOfUserGroup={message.user !== messages[index - 1]?.user}
+          isFirstOfUserGroup={message.user !== sortedMessages[index - 1]?.user}
         />
       ))}
     </ScrollShadow>

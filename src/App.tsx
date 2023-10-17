@@ -9,18 +9,25 @@ import { asyncTimeout } from "./utils/asyncTimeout.ts";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary.tsx";
 
 function App() {
-  const { messages, addMessage, resetMessages } = useMessages();
+  const { messages, addMessage, resetMessages, updateMessage } = useMessages();
 
   const handleUserMessage = async (message: string) => {
     addMessage({ text: message, user: "Human", isCurrentUser: true });
 
     await asyncTimeout(250);
 
+    const botMessage = addMessage({
+      text: "Loading",
+      user: "Blinkbot",
+      isCurrentUser: false,
+      isLoading: true,
+    });
+
     const botResponse = await respond(message).catch(
       (error) => `I had a problem: ${error.message}`,
     );
 
-    addMessage({ text: botResponse, user: "Blinkbot", isCurrentUser: false });
+    updateMessage({ text: botResponse, id: botMessage.id, isLoading: false });
   };
 
   return (

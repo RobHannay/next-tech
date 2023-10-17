@@ -2,13 +2,10 @@ import { Avatar, Card, CardBody, Skeleton, Spinner } from "@nextui-org/react";
 import "./Message.css";
 import { useLayoutEffect, useRef, useState } from "react";
 import cx from "classnames";
-import { useTimeout } from "usehooks-ts";
 import { BsRobot } from "react-icons/bs";
 
 function Message({ message, isLast, isFirstOfUserGroup }) {
   const ref = useRef(null);
-
-  const [isLoading, setIsLoading] = useState(!message.isCurrentUser);
 
   useLayoutEffect(() => {
     if (isLast) {
@@ -17,10 +14,6 @@ function Message({ message, isLast, isFirstOfUserGroup }) {
       });
     }
   }, [isLast]);
-
-  useTimeout(() => {
-    setIsLoading(false);
-  }, 800);
 
   return (
     <div
@@ -38,7 +31,7 @@ function Message({ message, isLast, isFirstOfUserGroup }) {
         {!message.isCurrentUser && isFirstOfUserGroup && <>{message.user}</>}
         <Card className={"Message__card"} shadow={"sm"}>
           <CardBody>
-            {isLoading ? (
+            {message.isLoading ? (
               <Skeleton>fake loading text xyz fake loading text xyz</Skeleton>
             ) : (
               message.text
