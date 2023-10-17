@@ -3,6 +3,7 @@ import { asyncTimeout } from "../utils/asyncTimeout";
 export async function respond(inputMessage) {
   console.log("Blinkbot responding to ", inputMessage);
 
+  // Make the message lowercase because equality checks are case-sensitive!
   const lowercaseMessage = inputMessage.trim().toLowerCase();
 
   if (lowercaseMessage === "hi") {
